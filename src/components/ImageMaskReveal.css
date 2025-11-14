@@ -44,6 +44,13 @@
   line-height: normal;
 }
 
+.buttons-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
 .arch__info a.link {
   text-decoration: none;
   padding: 16px 18px;
@@ -53,6 +60,32 @@
   gap: 4px;
   width: fit-content;
   align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.arch__info a.link:hover {
+  opacity: 0.8;
+}
+
+.tags-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.tag {
+  padding: 8px 16px;
+  background-color: rgba(18, 18, 18, 0.08);
+  border-radius: 20px;
+  font-size: 14px;
+  color: rgba(18, 18, 18, 0.8);
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.tag:hover {
+  background-color: rgba(18, 18, 18, 0.12);
 }
 
 .arch__right {
