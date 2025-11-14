@@ -85,95 +85,94 @@ export default function ImageMaskReveal({ sections, bgColors }: ImageMaskRevealP
     // GSAP Animation with Media Query
     const mm = gsap.matchMedia();
 
-    mm.add({
-      '(min-width: 769px)': () => {
-        const mainTimeline = gsap.timeline({
+    mm.add('(min-width: 769px)', () => {
+      const mainTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.arch',
+          start: 'top top',
+          end: 'bottom bottom',
+          pin: '.arch__right',
+          scrub: true,
+        },
+      });
+
+      gsap.set(imgs, {
+        clipPath: 'inset(0)',
+        objectPosition: '0px 0%',
+      });
+
+      imgs.forEach((_, index) => {
+        const currentImage = imgs[index];
+        const nextImage = imgs[index + 1] ? imgs[index + 1] : null;
+
+        const sectionTimeline = gsap.timeline();
+
+        if (nextImage) {
+          sectionTimeline
+            .to(
+              'body',
+              {
+                backgroundColor: colors[index],
+                duration: 1.5,
+                ease: 'power2.inOut',
+              },
+              0
+            )
+            .to(
+              currentImage,
+              {
+                clipPath: 'inset(0px 0px 100%)',
+                objectPosition: '0px 60%',
+                duration: 1.5,
+                ease: 'none',
+              },
+              0
+            )
+            .to(
+              nextImage,
+              {
+                objectPosition: '0px 40%',
+                duration: 1.5,
+                ease: 'none',
+              },
+              0
+            );
+        }
+
+        mainTimeline.add(sectionTimeline);
+      });
+    });
+
+    mm.add('(max-width: 768px)', () => {
+      const mbTimeline = gsap.timeline();
+      gsap.set(imgs, {
+        objectPosition: '0px 60%',
+      });
+
+      imgs.forEach((image, index) => {
+        const innerTimeline = gsap.timeline({
           scrollTrigger: {
-            trigger: '.arch',
-            start: 'top top',
-            end: 'bottom bottom',
-            pin: '.arch__right',
+            trigger: image,
+            start: 'top-=70% top+=50%',
+            end: 'bottom+=200% bottom',
             scrub: true,
           },
         });
 
-        gsap.set(imgs, {
-          clipPath: 'inset(0)',
-          objectPosition: '0px 0%',
-        });
-
-        imgs.forEach((_, index) => {
-          const currentImage = imgs[index];
-          const nextImage = imgs[index + 1] ? imgs[index + 1] : null;
-
-          const sectionTimeline = gsap.timeline();
-
-          if (nextImage) {
-            sectionTimeline
-              .to(
-                'body',
-                {
-                  backgroundColor: colors[index],
-                  duration: 1.5,
-                  ease: 'power2.inOut',
-                },
-                0
-              )
-              .to(
-                currentImage,
-                {
-                  clipPath: 'inset(0px 0px 100%)',
-                  objectPosition: '0px 60%',
-                  duration: 1.5,
-                  ease: 'none',
-                },
-                0
-              )
-              .to(
-                nextImage,
-                {
-                  objectPosition: '0px 40%',
-                  duration: 1.5,
-                  ease: 'none',
-                },
-                0
-              );
-          }
-
-          mainTimeline.add(sectionTimeline);
-        });
-      },
-      '(max-width: 768px)': () => {
-        const mbTimeline = gsap.timeline();
-        gsap.set(imgs, {
-          objectPosition: '0px 60%',
-        });
-
-        imgs.forEach((image, index) => {
-          const innerTimeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: image,
-              start: 'top-=70% top+=50%',
-              end: 'bottom+=200% bottom',
-              scrub: true,
-            },
+        innerTimeline
+          .to(image, {
+            objectPosition: '0px 30%',
+            duration: 5,
+            ease: 'none',
+          })
+          .to('body', {
+            backgroundColor: colors[index],
+            duration: 1.5,
+            ease: 'power2.inOut',
           });
 
-          innerTimeline
-            .to(image, {
-              objectPosition: '0px 30%',
-              duration: 5,
-              ease: 'none',
-            })
-            .to('body', {
-              backgroundColor: colors[index],
-              duration: 1.5,
-              ease: 'power2.inOut',
-            });
-
-          mbTimeline.add(innerTimeline);
-        });
-      },
+        mbTimeline.add(innerTimeline);
+      });
     });
 
     // Cleanup
