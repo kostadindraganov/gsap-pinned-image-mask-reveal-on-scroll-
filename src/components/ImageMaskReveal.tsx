@@ -83,8 +83,10 @@ export default function ImageMaskReveal({ sections, bgColors }: ImageMaskRevealP
     const colors = bgColors || ['#EDF9FF', '#FFECF2', '#FFE8DB'];
 
     // GSAP Animation with Media Query
-    ScrollTrigger.matchMedia({
-      '(min-width: 769px)': function () {
+    const mm = gsap.matchMedia();
+
+    mm.add({
+      '(min-width: 769px)': () => {
         const mainTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: '.arch',
@@ -141,7 +143,7 @@ export default function ImageMaskReveal({ sections, bgColors }: ImageMaskRevealP
           mainTimeline.add(sectionTimeline);
         });
       },
-      '(max-width: 768px)': function () {
+      '(max-width: 768px)': () => {
         const mbTimeline = gsap.timeline();
         gsap.set(imgs, {
           objectPosition: '0px 60%',
@@ -178,7 +180,7 @@ export default function ImageMaskReveal({ sections, bgColors }: ImageMaskRevealP
     return () => {
       lenis.destroy();
       window.removeEventListener('resize', handleResize);
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      mm.revert();
     };
   }, [bgColors]);
 
