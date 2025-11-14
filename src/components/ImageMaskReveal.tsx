@@ -194,15 +194,26 @@ export default function ImageMaskReveal({ sections, bgColors }: ImageMaskRevealP
               <div className="content">
                 <h2 className="header">{section.title}</h2>
                 <p className="desc">{section.description}</p>
-                <a className="link" href="#" style={{ backgroundColor: section.linkColor }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none">
-                    <path
-                      fill="#121212"
-                      d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z"
-                    />
-                  </svg>
-                  <span>Learn More</span>
-                </a>
+                <div className="buttons-container">
+                  <a className="link" href="#" style={{ backgroundColor: section.linkColor }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none">
+                      <path
+                        fill="#121212"
+                        d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z"
+                      />
+                    </svg>
+                    <span>Learn More</span>
+                  </a>
+                  <a className="link view-btn" href="#" style={{ backgroundColor: section.linkColor }}>
+                    <span>View</span>
+                  </a>
+                </div>
+                <div className="tags-container">
+                  <span className="tag">Sustainable</span>
+                  <span className="tag">Eco-Friendly</span>
+                  <span className="tag">Modern</span>
+                  <span className="tag">Architecture</span>
+                </div>
               </div>
             </div>
           ))}
